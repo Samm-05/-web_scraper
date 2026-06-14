@@ -1,16 +1,25 @@
 from config.settings import HEADERS
-
 from scraper.pipeline import Pipeline
-
 from utils.exporter import Exporter
-
 from database.crud import save_books
 
+import argparse
 import time
 import random
 
 
 def main():
+
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "--pages",
+        type=int,
+        default=5,
+        help="Number of pages to scrape"
+    )
+
+    args = parser.parse_args()
 
     scraper = Pipeline(
         HEADERS
@@ -18,7 +27,7 @@ def main():
 
     all_books = []
 
-    for page in range(1, 6):
+    for page in range(1, args.pages + 1):
 
         url = (
             f"https://books.toscrape.com/"
@@ -37,7 +46,7 @@ def main():
         )
 
         print(
-            f"Waiting {sleep_time:.2f} seconds..."
+            f"Waiting {sleep_time:.2f}s..."
         )
 
         time.sleep(
