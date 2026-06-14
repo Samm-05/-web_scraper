@@ -1,4 +1,12 @@
 venv/
-__pycache__/
-logs/
 .env
+
+__pycache__/
+*.pyc
+
+logs/
+
+data/exports/*.csv
+data/exports/*.json
+
+.vscode/
